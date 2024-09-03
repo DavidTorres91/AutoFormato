@@ -3,7 +3,7 @@ const path = require('path');
 const { Document, Packer, Paragraph, TextRun, ImageRun } = require('docx');
 
 const generateReport = async (req, res) => {
-    const directoryPath = '/storage/emulated/0/autoformato/fotos';
+    const directoryPath = path.join(__dirname, '../storage/fotos');
 
     // Revisa que las imágenes existan en el directorio
     const imageFiles = fs.readdirSync(directoryPath).filter(file => file.endsWith('.jpg') || file.endsWith('.png'));
@@ -43,12 +43,12 @@ const generateReport = async (req, res) => {
     // Guarda el documento generado en un archivo
     try {
         const buffer = await Packer.toBuffer(doc);
-        const reportPath = '/storage/emulated/0/autoformato/informe.docx';
+        const reportPath = path.join(__dirname, '../storage/informe.docx');
         fs.writeFileSync(reportPath, buffer);
 
         res.json({
             message: 'Informe generado correctamente',
-            path: reportPath,
+            path: `/storage/informe.docx`,
         });
     } catch (error) {
         console.error('Error al generar el informe:', error);

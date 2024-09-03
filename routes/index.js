@@ -8,7 +8,7 @@ const { generateReport } = require('../utils/fileUtils');
 // Configuración de multer para almacenar las imágenes
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const dir = '/storage/emulated/0/autoformato/fotos';
+        const dir = path.join(__dirname, '../storage/fotos');
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
@@ -34,14 +34,14 @@ router.get('/generar-informe', generateReport);
 
 // Endpoint para obtener imágenes
 router.get('/imagenes', (req, res) => {
-    const directoryPath = path.join('/storage/emulated/0/autoformato/fotos');
+    const directoryPath = path.join(__dirname, '../storage/fotos');
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
             return res.status(500).json({ error: 'No se pudieron listar las imágenes' });
         }
 
         const imagenes = files.filter(file => file.endsWith('.jpg') || file.endsWith('.png'))
-                              .map(file => `/storage/emulated/0/autoformato/fotos/${file}`);
+                              .map(file => `/storage/fotos/${file}`);
 
         res.json(imagenes);
     });

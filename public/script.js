@@ -1,4 +1,5 @@
 // public/script.js
+
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -68,7 +69,7 @@ generateReportBtn.addEventListener('click', () => {
         .then(data => {
             if (data.message) {
                 const enlace = document.createElement('a');
-                enlace.href = data.path;
+                enlace.href = '/storage/informe.docx'; // Ruta del archivo generado
                 enlace.download = 'informe.docx';
                 enlace.innerText = 'Descargar Informe';
                 showMessage(`Informe generado: `, 'success');
@@ -83,7 +84,7 @@ generateReportBtn.addEventListener('click', () => {
         });
 });
 
-function startVideoStream(deviceId) {
+function startVideoStream() {
     if (currentStream) {
         currentStream.getTracks().forEach(track => track.stop());
     }

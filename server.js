@@ -8,10 +8,12 @@ const app = express();
 const port = 3000;
 
 // Configuración de multer para la carga de imágenes
-const upload = multer({ dest: '/storage/emulated/0/autoformato/fotos/' });
+const upload = multer({ dest: path.join(__dirname, 'storage/fotos/') });
 
 // Configuración para servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
+// Configuración para servir archivos estáticos desde la carpeta 'storage'
+app.use('/storage', express.static(path.join(__dirname, 'storage')));
 
 // Usar el enrutador para las rutas de la API
 app.use('/api', indexRouter);
@@ -39,7 +41,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
     // Renombrar el archivo con la extensión correcta
     const newFilename = path.basename(req.file.path) + ext;
-    const newPath = path.join('/storage/emulated/0/autoformato/fotos', newFilename);
+    const newPath = path.join(__dirname, 'storage/fotos', newFilename);
     fs.renameSync(req.file.path, newPath);
 
     res.json({ message: 'Imagen recibida', path: newPath });
