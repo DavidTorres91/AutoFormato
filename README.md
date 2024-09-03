@@ -1,13 +1,7 @@
+AutoFormato
+AutoFormato es una aplicación web diseñada para capturar imágenes desde la cámara del dispositivo, almacenarlas y generar informes en formato Word que contienen cada imagen con su nombre correspondiente.
 
----
-
-# AutoFormato
-
-**AutoFormato** es una aplicación web diseñada para capturar imágenes desde la cámara del dispositivo, almacenarlas y generar informes en formato Word que contienen cada imagen con su nombre correspondiente.
-
-## Estructura del Proyecto
-
-```
+Estructura del Proyecto
 AutoFormato/
 │
 ├── node_modules/            # Dependencias de Node.js
@@ -26,47 +20,33 @@ AutoFormato/
 ├── package-lock.json        # Bloqueo de dependencias
 ├── server.js                # Archivo principal del servidor
 └── README.md                # Este archivo
-```
+Instalación
+Clona el repositorio:
 
-## Instalación
+git clone <URL_DEL_REPOSITORIO>
+cd AutoFormato
+Instala las dependencias:
 
-1. Clona el repositorio:
-    ```bash
-    git clone <URL_DEL_REPOSITORIO>
-    cd AutoFormato
-    ```
-
-2. Instala las dependencias:
-    ```bash
-    npm install
-    ```
-
-## Ejecución
-
+npm install
+Ejecución
 Para iniciar el servidor, usa el siguiente comando:
-```bash
+
 npm start
-```
+El servidor se ejecutará en http://localhost:3000.
 
-El servidor se ejecutará en `http://localhost:3000`.
+Uso
+Captura de Imágenes:
 
-## Uso
+La aplicación permite capturar imágenes desde la cámara del dispositivo.
+Las imágenes se envían al servidor y se almacenan en el directorio especificado.
+Generación de Informe:
 
-1. **Captura de Imágenes:**
-   - La aplicación permite capturar imágenes desde la cámara del dispositivo.
-   - Las imágenes se envían al servidor y se almacenan en el directorio especificado.
-
-2. **Generación de Informe:**
-   - Una vez capturadas las imágenes, puedes generar un informe en formato Word que contiene todas las imágenes.
-   - El informe será descargado como un archivo `.docx` con cada imagen y su nombre correspondiente.
-
-## Código Relevante
-
-### `server.js`
-
+Una vez capturadas las imágenes, puedes generar un informe en formato Word que contiene todas las imágenes.
+El informe será descargado como un archivo .docx con cada imagen y su nombre correspondiente.
+Código Relevante
+server.js
 Configura el servidor Express y las rutas de la API.
 
-```javascript
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
@@ -111,13 +91,9 @@ app.use('/api', indexRouter); // Añadir el prefijo /api para todas las rutas en
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
-```
+utils/fileUtils.js
+Define la función generateReport para crear informes en formato Word.
 
-### `utils/fileUtils.js`
-
-Define la función `generateReport` para crear informes en formato Word.
-
-```javascript
 const fs = require('fs');
 const path = require('path');
 const { Document, Packer, Paragraph, TextRun, ImageRun } = require('docx');
@@ -164,6 +140,3 @@ const generateReport = async (req, res) => {
 };
 
 module.exports = { generateReport };
-```
-
----
